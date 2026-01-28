@@ -1,0 +1,20 @@
+# Esta carpeta contiene los archivos de audio de narracion
+# Genera los archivos MP3 con un servicio de TTS (Text-to-Speech)
+# Los archivos deben coincidir con los nombres en narrationScript.ts:
+#
+# - intro.mp3
+# - que-es-orm.mp3
+# - que-es-sqlalchemy.mp3
+# - inicializacion.mp3
+# - sintaxis-moderna.mp3
+# - tipos-columnas.mp3
+# - opciones-columnas.mp3
+# - relacion-uno-a-uno.mp3
+# - relacion-uno-a-muchos.mp3
+# - relacion-muchos-db-table.mp3
+# - relacion-muchos-clase.mp3
+# - on-delete.mp3
+# - metodo-repr.mp3
+# - metodo-serialize.mp3
+# - serializacion-relaciones.mp3
+# - conclusion.mp3

@@ -1,0 +1,11 @@
+# Dependencias para generar audio
+
+# Opción 1: OpenAI TTS (mejor calidad, ~$0.10)
+openai>=1.0.0
+
+# Opción 2: Google TTS (gratis, buena calidad, requiere internet)
+gtts>=2.5.0
+
+# Opción 3: pyttsx3 (gratis, offline, calidad básica)
+pyttsx3>=2.90
+# En macOS también: pyobjc>=9.0
