@@ -26,7 +26,7 @@ WORKDIR /workspaces/${localWorkspaceFolderBasename}
 COPY Pipfile Pipfile.lock ./
 
 #  Install Python dependencies with `pipenv`
-RUN pipenv install --dev --deploy --skip-lock
+RUN pipenv install --dev --skip-lock
 
 #  Copy the rest of the code after installing dependencies
 COPY . ./
