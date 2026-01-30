@@ -30,28 +30,6 @@ db.init_app(app)
 CORS(app)
 setup_admin(app)
 
-# Handle/serialize errors like a JSON object
-@app.errorhandler(APIException)
-def handle_invalid_usage(error):
-    return jsonify(error.to_dict()), error.status_code
-
-# Error handlers para que abort() devuelva JSON
-@app.errorhandler(400)
-def bad_request(error):
-    return jsonify({"error": error.description}), 400
-
-@app.errorhandler(404)
-def not_found(error):
-    return jsonify({"error": error.description}), 404
-
-@app.errorhandler(409)
-def conflict(error):
-    return jsonify({"error": error.description}), 409
-
-@app.errorhandler(500)
-def internal_error(error):
-    return jsonify({"error": "Error interno del servidor"}), 500
-
 # generate sitemap with all your endpoints
 @app.route('/')
 def sitemap():
