@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/devcontainers/python:3.13
 
 ENV PYTHONUNBUFFERED 1
+RUN rm -f /etc/apt/source.list.d/yarn.list
 
 # [Optional] If your requirements rarely change, uncomment this section to add them to the image.
 # COPY requirements.txt /tmp/pip-tmp/
@@ -26,7 +27,7 @@ WORKDIR /workspaces/${localWorkspaceFolderBasename}
 COPY Pipfile Pipfile.lock ./
 
 #  Install Python dependencies with `pipenv`
-RUN pipenv install --dev --skip-lock
+RUN pipenv install --dev --deploy --skip-lock
 
 #  Copy the rest of the code after installing dependencies
 COPY . ./
