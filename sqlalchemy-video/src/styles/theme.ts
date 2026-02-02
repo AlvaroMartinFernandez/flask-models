@@ -89,7 +89,7 @@ export const theme = {
     width: 1920,
     height: 1080,
     fps: 30,
-    durationInFrames: 31798, // ~17.7 minutos
+    durationInFrames: 14400, // 8 minutos
   },
 };
 

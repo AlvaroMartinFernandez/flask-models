@@ -138,60 +138,58 @@ email: Mapped[str] = mapped_column(index=True)`,
   relacionUnoAUno: `# Relacion 1:1 - User tiene UN ProfileInfo
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
+    # uselist=False = UN objeto, no lista
     profile: Mapped["ProfileInfo"] = relationship(
-        "ProfileInfo", back_populates="user", uselist=False)
+        back_populates="user", uselist=False)
 
 class ProfileInfo(db.Model):
+    # FK con unique=True garantiza 1:1
     user_id: Mapped[int] = mapped_column(
         ForeignKey('users.id'), unique=True)
-    user: Mapped["User"] = relationship(
-        "User", back_populates="profile")`,
+    user: Mapped["User"] = relationship(back_populates="profile")`,
 
   // Relacion 1 a muchos
   relacionUnoAMuchos: `# Relacion 1:N - User tiene MUCHAS Orders
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
+    # Lista de ordenes (1:N)
     orders: Mapped[list["Order"]] = relationship(
-        "Order", back_populates="user", cascade="all, delete-orphan")
+        back_populates="user", cascade="all, delete-orphan")
 
 class Order(db.Model):
+    # FK SIN unique (permite multiples)
     user_id: Mapped[int] = mapped_column(
         ForeignKey('users.id', ondelete='CASCADE'))
-    user: Mapped["User"] = relationship(
-        "User", back_populates="orders")`,
+    user: Mapped["User"] = relationship(back_populates="orders")`,
 
   // Relacion muchos a muchos con db.Table
-  relacionMuchosTable: `# Relacion N:N con db.Table
+  relacionMuchosTable: `# Relacion N:N con db.Table (sin campos extra)
+# Tabla de asociacion simple
 article_tags = db.Table('article_tags',
-    db.Column('article_id', db.Integer, db.ForeignKey('articles.id'), primary_key=True),
-    db.Column('tag_id', db.Integer, db.ForeignKey('tags.id'), primary_key=True))
+    db.Column('article_id', db.Integer,
+        db.ForeignKey('articles.id'), primary_key=True),
+    db.Column('tag_id', db.Integer,
+        db.ForeignKey('tags.id'), primary_key=True))
 
 class Article(db.Model):
+    # secondary = tabla de asociacion
     tags: Mapped[list["Tag"]] = relationship(
-        "Tag", secondary=article_tags, back_populates="articles")
+        secondary=article_tags, back_populates="articles")
 
 class Tag(db.Model):
     articles: Mapped[list["Article"]] = relationship(
-        "Article", secondary=article_tags, back_populates="tags")`,
+        secondary=article_tags, back_populates="tags")`,
 
   // Relacion muchos a muchos con clase
   relacionMuchosClase: `# Relacion N:N con clase (campos adicionales)
-class Order(db.Model):
-    items: Mapped[list["OrderItem"]] = relationship(
-        "OrderItem", back_populates="order")
-
-class Article(db.Model):
-    order_items: Mapped[list["OrderItem"]] = relationship(
-        "OrderItem", back_populates="article")
-
 class OrderItem(db.Model):
+    """Tabla pivote con campos extra"""
     order_id: Mapped[int] = mapped_column(ForeignKey('orders.id'))
     article_id: Mapped[int] = mapped_column(ForeignKey('articles.id'))
+    # Campos adicionales en la tabla pivote
     quantity: Mapped[int] = mapped_column(default=1)
     unit_price: Mapped[float] = mapped_column(db.Float)
-    subtotal: Mapped[float] = mapped_column(db.Float)
-    order: Mapped["Order"] = relationship("Order", back_populates="items")
-    article: Mapped["Article"] = relationship("Article", back_populates="order_items")`,
+    subtotal: Mapped[float] = mapped_column(db.Float)`,
 
   // ON DELETE opciones
   onDeleteOpciones: `# Opciones de ON DELETE

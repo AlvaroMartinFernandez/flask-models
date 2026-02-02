@@ -1,64 +1,141 @@
 // Configuracion de timings del video SQLAlchemy (30 fps)
 // 1 segundo = 30 frames
-// Duraciones basadas en los audios ElevenLabs + 0.5s de pausa
+// Video total: ~8 minutos (480 segundos = 14400 frames)
+// Cubre secciones 1-6 del documento SQL-Alchemy-models.md
 
 const FPS = 30;
 
 export const TIMINGS = {
   // ============================================
-  // ACTO 1: Fundamentos (0s - 244.8s)
+  // ACTO 1: Fundamentos (0-120s)
   // ORM, SQLAlchemy, Inicializacion
   // ============================================
   act1: {
     start: 0,
-    end: 7344,
+    end: 3600, // 120s
 
-    intro: { start: 0, duration: 1528 },
-    queEsOrm: { start: 1528, duration: 2101 },
-    queEsSqlalchemy: { start: 3629, duration: 1496 },
-    inicializacion: { start: 5125, duration: 2219 },
+    // Intro y titulo (0-15s)
+    intro: {
+      start: 0,
+      duration: 450, // 15s
+    },
+
+    // Que es un ORM (15-45s)
+    queEsOrm: {
+      start: 450,
+      duration: 900, // 30s
+    },
+
+    // Que es SQLAlchemy (45-70s)
+    queEsSqlalchemy: {
+      start: 1350,
+      duration: 750, // 25s
+    },
+
+    // Inicializar SQLAlchemy (70-120s)
+    inicializacion: {
+      start: 2100,
+      duration: 1500, // 50s
+    },
   },
 
   // ============================================
-  // ACTO 2: Modelos y Columnas (244.8s - 451.2s)
+  // ACTO 2: Modelos y Columnas (120-200s)
   // Crear modelos, tipos de columnas, opciones
   // ============================================
   act2: {
-    start: 7344,
-    end: 13537,
+    start: 3600,
+    end: 6000, // 200s
 
-    sintaxisModerna: { start: 7344, duration: 2286 },
-    tiposColumnas: { start: 9630, duration: 1885 },
-    opcionesColumnas: { start: 11515, duration: 2022 },
+    // Sintaxis moderna (120-150s)
+    sintaxisModerna: {
+      start: 3600,
+      duration: 900, // 30s
+    },
+
+    // Tipos de columnas (150-175s)
+    tiposColumnas: {
+      start: 4500,
+      duration: 750, // 25s
+    },
+
+    // Opciones de columnas (175-200s)
+    opcionesColumnas: {
+      start: 5250,
+      duration: 750, // 25s
+    },
   },
 
   // ============================================
-  // ACTO 3: Relaciones (451.2s - 785.1s)
+  // ACTO 3: Relaciones (200-360s)
   // 1:1, 1:N, N:N, ON DELETE
   // ============================================
   act3: {
-    start: 13537,
-    end: 23554,
+    start: 6000,
+    end: 10800, // 360s
 
-    relacionUnoAUno: { start: 13537, duration: 2254 },
-    relacionUnoAMuchos: { start: 15791, duration: 1977 },
-    relacionMuchosDbTable: { start: 17768, duration: 2092 },
-    relacionMuchosClase: { start: 19860, duration: 2052 },
-    onDelete: { start: 21912, duration: 1642 },
+    // Relacion 1 a 1 (200-235s)
+    relacionUnoAUno: {
+      start: 6000,
+      duration: 1050, // 35s
+    },
+
+    // Relacion 1 a Muchos (235-275s)
+    relacionUnoAMuchos: {
+      start: 7050,
+      duration: 1200, // 40s
+    },
+
+    // Relacion Muchos a Muchos - db.Table (275-310s)
+    relacionMuchosDbTable: {
+      start: 8250,
+      duration: 1050, // 35s
+    },
+
+    // Relacion Muchos a Muchos - Clase (310-340s)
+    relacionMuchosClase: {
+      start: 9300,
+      duration: 900, // 30s
+    },
+
+    // ON DELETE comportamientos (340-360s)
+    onDelete: {
+      start: 10200,
+      duration: 600, // 20s
+    },
   },
 
   // ============================================
-  // ACTO 4: Serializacion (785.1s - 1059.9s)
+  // ACTO 4: Serializacion (360-480s)
   // __repr__, serialize, serializacion con relaciones
   // ============================================
   act4: {
-    start: 23554,
-    end: 31798,
+    start: 10800,
+    end: 14400, // 480s
 
-    metodoRepr: { start: 23554, duration: 1794 },
-    metodoSerialize: { start: 25348, duration: 2012 },
-    serializacionRelaciones: { start: 27360, duration: 2187 },
-    conclusion: { start: 29547, duration: 2251 },
+    // Metodo __repr__ (360-385s)
+    metodoRepr: {
+      start: 10800,
+      duration: 750, // 25s
+    },
+
+    // Metodo serialize (385-420s)
+    metodoSerialize: {
+      start: 11550,
+      duration: 1050, // 35s
+    },
+
+    // Serializacion con relaciones (420-455s)
+    serializacionRelaciones: {
+      start: 12600,
+      duration: 1050, // 35s
+    },
+
+    // Conclusion y resumen (455-480s)
+    conclusion: {
+      start: 13650,
+      duration: 750, // 25s
+    },
   },
 };
 
@@ -67,5 +144,5 @@ export const VIDEO_CONFIG = {
   fps: FPS,
   width: 1920,
   height: 1080,
-  durationInFrames: 31798, // ~1060s = ~17.7 minutos
+  durationInFrames: 14400, // 8 minutos (480 segundos)
 };
