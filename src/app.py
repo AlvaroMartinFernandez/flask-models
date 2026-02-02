@@ -15,6 +15,7 @@ Los modelos están en src/models/
 """
 import os
 from flask import Flask, jsonify
+from flask import Flask, request, jsonify, url_for, abort
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
@@ -32,6 +33,12 @@ if db_url is not None:
 else:
     db_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'test.db')
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.abspath(db_path)
+    if os.name == 'nt':  # Windows
+        db_path = os.path.join(os.path.dirname(__file__), '..', 'instance', 'test.db')
+        os.makedirs(os.path.dirname(os.path.abspath(db_path)), exist_ok=True)
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.abspath(db_path)
+    else:  # Unix/Linux/Codespaces
+        app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 MIGRATE = Migrate(app, db)

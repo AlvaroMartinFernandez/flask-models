@@ -2,6 +2,7 @@
 Servicio de artículos - Lógica de negocio para CRUD de Article
 """
 
+from flask import abort
 from models import db, Article, Tag
 
 
@@ -16,13 +17,13 @@ class ArticleService:
     def get_by_id(article_id):
         article = Article.query.get(article_id)
         if article is None:
-            raise ValueError(f"Artículo con id {article_id} no encontrado")
+            abort(404, description=f"Artículo con id {article_id} no encontrado")
         return article.serialize_with_tags()
 
     @staticmethod
     def create(data):
         if "name" not in data or not data["name"]:
-            raise ValueError("El campo 'name' es obligatorio")
+            abort(400, description="El campo 'name' es obligatorio")
 
         try:
             new_article = Article(
@@ -46,13 +47,13 @@ class ArticleService:
             return new_article.serialize_with_tags()
         except Exception as error:
             db.session.rollback()
-            raise error
+            abort(500, description=f"Error al crear artículo: {str(error)}")
 
     @staticmethod
     def update(article_id, data):
         article = Article.query.get(article_id)
         if article is None:
-            raise ValueError(f"Artículo con id {article_id} no encontrado")
+            abort(404, description=f"Artículo con id {article_id} no encontrado")
 
         if "name" in data:
             article.name = data["name"]
@@ -80,13 +81,13 @@ class ArticleService:
             return article.serialize_with_tags()
         except Exception as error:
             db.session.rollback()
-            raise error
+            abort(500, description=f"Error al actualizar artículo: {str(error)}")
 
     @staticmethod
     def delete(article_id):
         article = Article.query.get(article_id)
         if article is None:
-            raise ValueError(f"Artículo con id {article_id} no encontrado")
+            abort(404, description=f"Artículo con id {article_id} no encontrado")
 
         name = article.name
         try:
@@ -95,4 +96,4 @@ class ArticleService:
             return {"message": f"Artículo '{name}' eliminado correctamente"}
         except Exception as error:
             db.session.rollback()
-            raise error
+            abort(500, description=f"Error al eliminar artículo: {str(error)}")
