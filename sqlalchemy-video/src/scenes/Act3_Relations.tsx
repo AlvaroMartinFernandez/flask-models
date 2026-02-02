@@ -82,7 +82,7 @@ export const Act3_Relations: React.FC = () => {
                 code={codeSnippets.relacionUnoAUno}
                 language="python"
                 fontSize={theme.fontSizes.codeSmall}
-                highlightLines={[4, 5, 9, 10]}
+                highlightLines={[4, 5, 10, 11]}
                 animateLines
                 durationInFrames={act3.relacionUnoAUno.duration}
               />
@@ -226,7 +226,7 @@ export const Act3_Relations: React.FC = () => {
                 code={codeSnippets.relacionMuchosTable}
                 language="python"
                 fontSize={theme.fontSizes.codeSmall}
-                highlightLines={[2, 3, 4, 5, 6, 10, 11, 14, 15]}
+                highlightLines={[2, 3, 4, 7, 8, 11, 12]}
                 animateLines
                 durationInFrames={act3.relacionMuchosDbTable.duration}
               />
@@ -282,7 +282,7 @@ export const Act3_Relations: React.FC = () => {
                 code={codeSnippets.relacionMuchosClase}
                 language="python"
                 fontSize={theme.fontSizes.codeSmall}
-                highlightLines={[5, 6, 7, 8]}
+                highlightLines={[3, 4, 7, 8, 16, 17]}
                 animateLines
                 durationInFrames={act3.relacionMuchosClase.duration}
                 annotation="OrderItem guarda quantity, unit_price, subtotal"

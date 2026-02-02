@@ -42,8 +42,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     ? Math.floor(
         interpolate(
           frame - startFrame,
-          [0, durationInFrames],
-          [0, displayLines.length],
+          [0, durationInFrames * 0.9],
+          [0, displayLines.length + 1],
           {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
