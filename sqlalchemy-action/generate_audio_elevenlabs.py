@@ -54,15 +54,20 @@ Al final tendras 7 rutas funcionando que puedes usar como base para cualquier pr
     "estructura": """
 Nuestro proyecto es muy simple. Todo va en dos archivos.
 El primero es models punto py.
-Aqui definimos la instancia de SQLAlchemy con db igual SQLAlchemy parentesis,
-y creamos nuestro modelo User con sus columnas.
-El modelo tiene id como clave primaria,
-email y username que son unicos y obligatorios,
-password que tambien es obligatorio,
-y is_active que es un booleano con valor por defecto True.
-Tambien definimos las relaciones.
-profile es una relacion uno a uno con ProfileInfo,
-y orders es una relacion uno a muchos con Order, con cascade delete.
+Aqui importamos Mapped, mapped_column y relationship de sqlalchemy punto orm,
+y tambien String de sqlalchemy.
+Creamos db igual SQLAlchemy parentesis,
+y definimos el modelo User usando la sintaxis moderna mapped.
+Cada columna se declara con su tipo Mapped y mapped_column.
+id es Mapped int con mapped_column primary_key igual True.
+email es Mapped str con mapped_column, String 120 y unique igual True.
+username es Mapped str con mapped_column, String 80 y unique igual True.
+password es Mapped str con mapped_column, String 256.
+Y is_active es Mapped bool con mapped_column y default True.
+Con Mapped str la columna ya es obligatoria, no necesitamos nullable igual False.
+Las relaciones tambien usan Mapped.
+profile es Mapped ProfileInfo con relationship uselist False, que es uno a uno.
+Y orders es Mapped lista de Order con relationship y cascade delete orphan, que es uno a muchos.
 El segundo archivo es app punto py.
 Aqui configuramos Flask, conectamos SQLAlchemy con db punto init_app,
 y escribimos todos los endpoints directamente usando decoradores app punto route.
