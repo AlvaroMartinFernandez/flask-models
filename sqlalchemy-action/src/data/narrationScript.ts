@@ -26,7 +26,7 @@ export const narrationScript: NarrationSegment[] = [
   {
     id: 'estructura',
     section: 'Estructura del Proyecto',
-    text: 'Nuestro proyecto es muy simple. Todo va en dos archivos. El primero es models.py donde definimos SQLAlchemy y el modelo User con sus columnas: id, email, username, password e is_active. Tambien definimos las relaciones: profile uno a uno y orders uno a muchos con cascade. El segundo archivo es app.py donde configuramos Flask, conectamos SQLAlchemy y escribimos todos los endpoints directamente con decoradores route.',
+    text: 'Nuestro proyecto es muy simple. Todo va en dos archivos. El primero es models.py donde importamos Mapped, mapped_column y relationship de sqlalchemy.orm. Definimos el modelo User con la sintaxis moderna mapped: cada columna usa Mapped con su tipo y mapped_column. Por ejemplo id es Mapped int, email es Mapped str. Con Mapped str la columna ya es obligatoria sin necesidad de nullable False. Las relaciones tambien usan Mapped: profile es Mapped ProfileInfo uno a uno, y orders es Mapped lista de Order uno a muchos con cascade. El segundo archivo es app.py donde configuramos Flask, conectamos SQLAlchemy y escribimos todos los endpoints directamente con decoradores route.',
     startFrame: 1446,
     durationFrames: 1961,
     audioFile: 'estructura.mp3',

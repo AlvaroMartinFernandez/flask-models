@@ -16,25 +16,27 @@ export const codeSnippets = {
   // Estructura models.py (sin serialize, se muestra en Act2)
   modelsPy: `# models.py
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String
 
 db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True,
-                      nullable=False)
-    username = db.Column(db.String(80), unique=True,
-                         nullable=False)
-    password = db.Column(db.String(256), nullable=False)
-    is_active = db.Column(db.Boolean, default=True)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[str] = mapped_column(String(120),
+                                       unique=True)
+    username: Mapped[str] = mapped_column(String(80),
+                                          unique=True)
+    password: Mapped[str] = mapped_column(String(256))
+    is_active: Mapped[bool] = mapped_column(default=True)
 
     # Relaciones (1:1 y 1:N)
-    profile = db.relationship("ProfileInfo",
-                              uselist=False)
-    orders = db.relationship("Order",
-                             cascade="all, delete-orphan")`,
+    profile: Mapped["ProfileInfo"] = relationship(
+        uselist=False)
+    orders: Mapped[list["Order"]] = relationship(
+        cascade="all, delete-orphan")`,
 
   // Estructura app.py
   appPy: `# app.py
