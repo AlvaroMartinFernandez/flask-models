@@ -10,5 +10,7 @@ package.json
 __pycache__/
 
 # Node modules de proyectos de video
-sqlalchemy-video/node_modules/
-poo-flask-video/node_modules/
+**/node_modules/
+
+# Videos renderizados
+*.mp4
